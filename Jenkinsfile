@@ -27,12 +27,12 @@ pipeline {
         }
         stage('providing Docker hub tag to image') {
             steps {
-                bat "docker tag $IMAGE snaveenkpn/Test2:$currentBuild.number"
+                bat "docker tag $IMAGE snaveenkpn/test:$currentBuild.number"
             }
         }
         stage('push image to docker hub') {
             steps {
-                bat "docker push snaveenkpn/Test2:${currentBuild.number}"
+                bat "docker push snaveenkpn/test:${currentBuild.number}"
             }
         }
     }
