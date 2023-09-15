@@ -31,9 +31,14 @@ pipeline {
             }
         }
         stage('push image to docker hub') {
-            steps {
-                bat "docker push snaveenkpn/test:${currentBuild.number}"
-            }
+           
+             steps {
+                withCredentials([usernamePassword(credentialsId: '35ff6822-43e1-4d7e-b9af-d003bd3856d0', passwordVariable: 'Password', usernameVariable: Username')]) {
+                    script {
+                        // Use the DOCKER_USERNAME and DOCKER_PASSWORD environment variables in your Docker commands
+                        bat "docker login -u \$Username -p \$Password"
+                         bat "docker push snaveenkpn/test:${currentBuild.number}"
+                    }
         }
     }
 }
