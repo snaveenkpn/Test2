@@ -1,0 +1,17 @@
+FROM node:14 As build
+
+WORKDIR /app
+
+COPY . /app
+
+RUN npm init -y
+
+RUN npm install express
+
+FROM gcr.io/distroless/nodejs18-debian11
+
+WORKDIR /app
+
+COPY --from=build /app /app
+
+CMD ["node", "app.js"]
